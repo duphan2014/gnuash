@@ -63,7 +63,7 @@ int game_init(Game *game) {
     game->winHeight = WINDOW_HEIGHT;
 
     // Create window
-    game->window = SDL_CreateWindow("Gnuash",
+    game->window = SDL_CreateWindow("Simple Ping Pong",
                                     SDL_WINDOWPOS_CENTERED,
                                     SDL_WINDOWPOS_CENTERED,
                                     game->winWidth, game->winHeight,
