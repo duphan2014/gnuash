@@ -145,7 +145,6 @@ void game_run(Game *game) {
         input_handle_keyboard(game, keystate);
         game_update(game);
         game_render(game);
-        scene_update_cloud(game->scene, game->winWidth, game->winHeight);
         // Delay to control frame rate (16ms ~ 60 FPS)
         SDL_Delay(16);
     }
@@ -185,19 +184,51 @@ void game_update(Game *game) {
 
         // Ball-to-ball collisions, to divert their paths
         ball_handle_ball_collision(game->balls, NUM_BALLS);
-
-        // cloud update - moving
-        scene_update_cloud(game->scene, game->winWidth, game->winHeight);
     }
 }
-void game_render(Game *game) {
-    // Set background color (black)
-    SDL_SetRenderDrawColor(game->renderer, 0, 0, 0, 255);
-    // Set background color (sky blue)
-    //SDL_SetRenderDrawColor(game->renderer, 255, 255, 255, 255);
-    SDL_RenderClear(game->renderer);
 
-    // Draw scene e.g. clouds
+void game_draw_pingpong_table(SDL_Renderer *renderer, int width, int height) {
+    // Set ping pong table green background color (dark green)
+    SDL_SetRenderDrawColor(renderer, 0, 120, 0, 255);
+    SDL_RenderClear(renderer);
+    
+    // Draw white lines for ping pong table pattern
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    
+    // Center line (vertical)
+    SDL_Rect centerLine = {width / 2 - 2, 0, 4, height};
+    SDL_RenderFillRect(renderer, &centerLine);
+    
+    // Top edge line
+    SDL_Rect topEdge = {0, 0, width, 3};
+    SDL_RenderFillRect(renderer, &topEdge);
+    
+    // Bottom edge line
+    SDL_Rect bottomEdge = {0, height - 3, width, 3};
+    SDL_RenderFillRect(renderer, &bottomEdge);
+    
+    // Left edge line
+    SDL_Rect leftEdge = {0, 0, 3, height};
+    SDL_RenderFillRect(renderer, &leftEdge);
+    
+    // Right edge line
+    SDL_Rect rightEdge = {width - 3, 0, 3, height};
+    SDL_RenderFillRect(renderer, &rightEdge);
+    
+    // Net line (horizontal dashed line in the middle)
+    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255); // Light gray for net
+    int netY = height / 2;
+    for (int x = 0; x < width; x += 20) {
+        SDL_Rect netSegment = {x, netY - 1, 10, 2};
+        SDL_RenderFillRect(renderer, &netSegment);
+    }
+}
+
+void game_render(Game *game) {
+    // Draw ping pong table background
+    game_draw_pingpong_table(game->renderer, game->winWidth, game->winHeight);
+
+    // Draw scene
     scene_draw(game->scene, game->renderer);
 
     // Draw balls

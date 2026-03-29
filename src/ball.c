@@ -4,11 +4,11 @@
 
 void ball_init_array(Ball balls[], int count) {
     Ball initial_balls[5] = {
-        {100, 100, 6, 4, 20, 250, 0, 0},
-        {200, 150, -4, 6, 20, 250, 0, 0},
-        {300, 200, 8, -6, 20, 0, 250, 0},
-        {400, 250, -6, -4, 20, 0, 250, 0},
-        {500, 300, 4, 8, 20, 0, 0, 250}
+        {100, 100, 6, 4, 20, 255, 255, 255},     // White ping pong ball
+        {200, 150, -4, 6, 20, 255, 165, 0},      // Orange ping pong ball
+        {300, 200, 8, -6, 20, 255, 255, 255},    // White ping pong ball
+        {400, 250, -6, -4, 20, 255, 165, 0},     // Orange ping pong ball
+        {500, 300, 4, 8, 20, 255, 255, 255}      // White ping pong ball
     };
 
     for (int i = 0; i < count && i < 5; i++) {

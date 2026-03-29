@@ -32,8 +32,8 @@
 
 // Game constants
 #define NUM_BALLS 5
-#define WINDOW_WIDTH 1024
-#define WINDOW_HEIGHT 768
+#define WINDOW_WIDTH 600
+#define WINDOW_HEIGHT 1080
 
 // Game state enumeration
 typedef enum {
@@ -79,5 +79,6 @@ void game_render(Game *game);
 void game_save_highscore(Game *game);
 void game_reset(Game *game);
 void game_cleanup(Game *game);
+void game_draw_pingpong_table(SDL_Renderer *renderer, int width, int height);
 
 #endif // GAME_H

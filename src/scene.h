@@ -20,24 +20,10 @@
 //#include "game.h"
 
 typedef struct {
-    int x, y;
-    int vx, vy;
-    Sprite* sprite;
-} Cloud;
-
-typedef struct {
-    Cloud* clouds; // either pointer for dynamic size array or fixed size Cloud[10] clouds
-    // add more as needed
-    int cloud_count;
+    int placeholder; // Empty scene for now
 } Scene;
 
 void scene_init(Scene* scene, SDL_Renderer* renderer, int winWidth, int winHeight);
-void scene_init_clouds(Scene* scene, SDL_Renderer* renderer, int winWidth, int winHeight);
-// void scene_draw(Scene* scene, SDL_Renderer* renderer);
-// void scene_free(Scene* scene);
-
-void scene_load_cloud(SDL_Renderer* renderer, Cloud* Cloud);
 void scene_draw(Scene* scene, SDL_Renderer* renderer);
 void scene_free(Scene* scene);
-void scene_update_cloud(Scene* scene, int winWidth, int winHeight);
 #endif
