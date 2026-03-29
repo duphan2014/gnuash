@@ -1,0 +1,1 @@
+#you have to copy all the required dlls to the same directory as the executable (for independent execution), or add them to your PATH environment variable (dependent on the  host machine)
