@@ -5,6 +5,10 @@
 #include <SDL.h>
 #elif defined(__linux__)
 #include <SDL2/SDL.h>
+#elif defined(_WIN32) || defined(_WIN64)
+#include <SDL.h>
+#elif defined(__CYGWIN__)
+#include <SDL.h>
 #else
 #error "Unsupported platform"
 #endif

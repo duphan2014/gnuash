@@ -11,6 +11,16 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#elif defined(_WIN32) || defined(_WIN64)
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
+#include <SDL_image.h>
+#elif defined(__CYGWIN__)
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
+#include <SDL_image.h>
 #else
 #error "Unsupported platform"
 #endif

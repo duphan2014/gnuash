@@ -2,6 +2,15 @@
 
 This document explains the modular restructuring of the Gnuash game following C best practices.
 
+## Platform Support
+
+Gnuash supports multiple platforms:
+- **Linux** (native compilation)
+- **macOS** (native compilation) 
+- **Windows** (MinGW/MSYS2/Visual Studio)
+
+See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for Windows-specific setup instructions.
+
 ## Project Structure
 
 ```
@@ -106,17 +115,30 @@ gnuash/
 
 ## Building the Modular Version
 
-Use the new Makefile:
+### Linux/macOS
+Use the standard Makefile:
 
 ```bash
-# Build the modular version
-make -f Makefile.modular
+# Build the game
+make
 
 # Clean build files
-make -f Makefile.modular clean
+make clean
 
 # View build variables
-make -f Makefile.modular print-vars
+make print-vars
+```
+
+### Windows
+For Windows, see the detailed [Windows Setup Guide](WINDOWS_SETUP.md).
+
+Quick start:
+```cmd
+# Using the provided batch script (easiest)
+build_windows.bat
+
+# Or using make directly (if available)
+make
 ```
 
 ## Migration Strategy

@@ -7,6 +7,12 @@
 #elif defined(__linux__)
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#elif defined(_WIN32) || defined(_WIN64)
+#include <SDL.h>
+#include <SDL_image.h>
+#elif defined(__CYGWIN__)
+#include <SDL.h>
+#include <SDL_image.h>
 #else
 #error "Unsupported platform"
 #endif
