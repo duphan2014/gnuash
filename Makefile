@@ -27,6 +27,27 @@ else ifeq ($(UNAME_S),Darwin)
     #SDL_LIBS := $(shell sdl2-config --libs)
 	SDL_CFLAGS := $(shell pkg-config --cflags sdl2 SDL2_ttf SDL2_mixer SDL2_image)
     SDL_LIBS := $(shell pkg-config --libs sdl2 SDL2_ttf SDL2_mixer SDL2_image)
+else ifneq (,$(findstring MINGW,$(UNAME_S)))
+    # Windows with MINGW/MSYS2
+    SDL_CFLAGS := $(shell pkg-config --cflags sdl2 SDL2_ttf SDL2_mixer SDL2_image)
+    SDL_LIBS := $(shell pkg-config --libs sdl2 SDL2_ttf SDL2_mixer SDL2_image)
+    TARGET := $(TARGET).exe
+else ifneq (,$(findstring MSYS,$(UNAME_S)))
+    # Windows with MSYS2
+    SDL_CFLAGS := $(shell pkg-config --cflags sdl2 SDL2_ttf SDL2_mixer SDL2_image)
+    SDL_LIBS := $(shell pkg-config --libs sdl2 SDL2_ttf SDL2_mixer SDL2_image)
+    TARGET := $(TARGET).exe
+else ifneq (,$(findstring CYGWIN,$(UNAME_S)))
+    # Windows with Cygwin
+    SDL_CFLAGS := $(shell pkg-config --cflags sdl2 SDL2_ttf SDL2_mixer SDL2_image)
+    SDL_LIBS := $(shell pkg-config --libs sdl2 SDL2_ttf SDL2_mixer SDL2_image)
+    TARGET := $(TARGET).exe
+else
+    # Assume Windows if no uname (for cmd/PowerShell without uname)
+    SDL_CFLAGS := 
+    SDL_LIBS := -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image
+    TARGET := $(TARGET).exe
+    CC = gcc
 endif
 
 # Default rule
@@ -48,4 +69,14 @@ $(TARGET): $(OBJS)
 
 # Clean up build files
 clean:
+ifneq (,$(findstring MINGW,$(UNAME_S)))
 	rm -f $(TARGET) $(OBJS)
+else ifneq (,$(findstring MSYS,$(UNAME_S)))
+	rm -f $(TARGET) $(OBJS)
+else ifneq (,$(findstring CYGWIN,$(UNAME_S)))
+	rm -f $(TARGET) $(OBJS)
+else ifeq ($(OS),Windows_NT)
+	cmd /c "del /Q $(TARGET) $(OBJS) 2>nul || echo Clean completed"
+else
+	rm -f $(TARGET) $(OBJS)
+endif

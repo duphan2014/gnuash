@@ -5,6 +5,10 @@
 #include <SDL_mixer.h>
 #elif defined(__linux__)
 #include <SDL2/SDL_mixer.h>
+#elif defined(_WIN32) || defined(_WIN64)
+#include <SDL_mixer.h>
+#elif defined(__CYGWIN__)
+#include <SDL_mixer.h>
 #else
 #error "Unsupported platform"
 #endif
