@@ -39,14 +39,23 @@ int game_init(Game *game) {
 
     // ===== SOUND =====
     // Initialize audio
-    if (audio_init() < 0) {
-        return -1;
+    int audioResult = audio_init();
+    if (audioResult < 0) {
+        return -1;  // Fatal error
     }
-
-    // Load sounds
-    game->soundHitPlatform = audio_load_sound("sounds/boing_x.wav");
-    game->soundHitBottom = audio_load_sound("sounds/blip.wav");
-    game->soundGameOver = audio_load_sound("sounds/floop2_x.wav");
+    
+    // Load sounds (only if audio initialized successfully)
+    if (audioResult == 1) {
+        game->soundHitPlatform = audio_load_sound("sounds/boing_x.wav");
+        game->soundHitBottom = audio_load_sound("sounds/blip.wav");
+        game->soundGameOver = audio_load_sound("sounds/floop2_x.wav");
+    } else {
+        // Audio disabled - set sound pointers to NULL
+        game->soundHitPlatform = NULL;
+        game->soundHitBottom = NULL;
+        game->soundGameOver = NULL;
+        printf("Audio disabled - game will run silently.\n");
+    }
 
     // ==== WINDOW =====
     // Initialize window dimensions

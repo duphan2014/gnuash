@@ -43,7 +43,7 @@ void ui_draw_start_screen(SDL_Renderer *renderer, TTF_Font *font, int winWidth, 
     SDL_Color white = {255, 255, 255};
 
     // Title
-    SDL_Surface *titleSurface = TTF_RenderText_Solid(font, "Gnuash 1.0", white);
+    SDL_Surface *titleSurface = TTF_RenderText_Solid(font, "Simple Ping Pong", white);
     if (titleSurface) {
         SDL_Texture *titleTexture = SDL_CreateTextureFromSurface(renderer, titleSurface);
         SDL_Rect titleRect = {winWidth/2 - titleSurface->w/2, winHeight/2 - titleSurface->h*2, titleSurface->w, titleSurface->h};
@@ -54,12 +54,28 @@ void ui_draw_start_screen(SDL_Renderer *renderer, TTF_Font *font, int winWidth, 
 
     // Instructions
     SDL_Surface *instructSurface = TTF_RenderText_Solid(font, "Press Enter to Start", white);
+    SDL_Surface *instructSurface2 = TTF_RenderText_Solid(font, "Alt + Enter for Fullscreen", white);
+    SDL_Surface *instructSurface3 = TTF_RenderText_Solid(font, "Shift + Arrow Keys for Faster Movement", white);
     if (instructSurface) {
         SDL_Texture *instructTexture = SDL_CreateTextureFromSurface(renderer, instructSurface);
         SDL_Rect instructRect = {winWidth/2 - instructSurface->w/2, winHeight/2 - instructSurface->h/2, instructSurface->w, instructSurface->h};
         SDL_RenderCopy(renderer, instructTexture, NULL, &instructRect);
         SDL_FreeSurface(instructSurface);
         SDL_DestroyTexture(instructTexture);
+    }
+    if (instructSurface2) {
+        SDL_Texture *instructTexture2 = SDL_CreateTextureFromSurface(renderer, instructSurface2);
+        SDL_Rect instructRect2 = {winWidth/2 - instructSurface2->w/2, winHeight/2 - instructSurface2->h/2 + 60, instructSurface2->w, instructSurface2->h};
+        SDL_RenderCopy(renderer, instructTexture2, NULL, &instructRect2);
+        SDL_FreeSurface(instructSurface2);
+        SDL_DestroyTexture(instructTexture2);
+    }
+    if (instructSurface3) {
+        SDL_Texture *instructTexture3 = SDL_CreateTextureFromSurface(renderer, instructSurface3);
+        SDL_Rect instructRect3 = {winWidth/2 - instructSurface3->w/2, winHeight/2 - instructSurface3->h/2 + 90, instructSurface3->w, instructSurface3->h};
+        SDL_RenderCopy(renderer, instructTexture3, NULL, &instructRect3);
+        SDL_FreeSurface(instructSurface3);
+        SDL_DestroyTexture(instructTexture3);
     }
 }
 
