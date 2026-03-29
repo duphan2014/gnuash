@@ -35,12 +35,18 @@ void platform_handle_collision(Platform *platform) {
 }
 
 void platform_handle_input(Platform *platform, const Uint8 *keystate, int winWidth) {
+    // Check if shift is held for faster movement
+    int currentSpeed = platform->speed;
+    if (keystate[SDL_SCANCODE_LSHIFT] || keystate[SDL_SCANCODE_RSHIFT]) {
+        currentSpeed = platform->speed * 1.5; // Double speed when shift is held
+    }
+
     if (keystate[SDL_SCANCODE_LEFT]) {
-        platform->x -= platform->speed;
+        platform->x -= currentSpeed;
     }
 
     if (keystate[SDL_SCANCODE_RIGHT]) {
-        platform->x += platform->speed;
+        platform->x += currentSpeed;
     }
 
     // keep platform within window bounds
